@@ -1,3 +1,4 @@
+//conversor de número decimal para binário, octal e hexadecimal
 #include <iostream>
 
 using namespace std;
@@ -6,7 +7,7 @@ void conversorBO(int decimal, int base){ //conversor de decimal para binario/oct
     int restos[100];
 
     int iterador = 0;
-    while(decimal != 0) { //estrutura de repetição para ir dividindo e
+    while(decimal != 0) { //estrutura de repetição para ir dividindo e guardando os restos
         restos[iterador] = decimal % base;
 
         decimal /= base;
@@ -23,10 +24,10 @@ void hexadecimal (int decimal) { //conversor de decimal para hexadecimal
     char restos[100];
     
     int iterador = 0;
-    while(decimal != 0) {
-        if (decimal % 16 < 10) {
+    while(decimal != 0) { //estrutura de repetição para ir dividindo e guardando os restos
+        if (decimal % 16 < 10) { 
             restos[iterador] = (decimal % 16) + '0'; // o + '0' é pra converter para char
-        } else {
+        } else { //se estiver nos caracteres entre A e F
             restos[iterador] = (((decimal % 16) - 10) + 65) + '0'; 
         }
 
