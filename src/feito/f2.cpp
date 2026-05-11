@@ -1,11 +1,10 @@
-//by Pedrozox and MCunha
 //conversor de número binário, octal e hexadecimal para decimal
 #include <iostream>
 #include <cmath>
 
 using namespace std;
 
-int converterBO(int numero, int base) { //conversor se o número for Binário ou Octal
+int BOtoD(int numero, int base) { // binario/octal para decimal
     int vetor[100];
     
     int iterador = 0;
@@ -25,10 +24,10 @@ int converterBO(int numero, int base) { //conversor se o número for Binário ou
     return convertido;
 }
 
-int converterHexa(string numero, int base) { //conversor se o número for Hexadecimal
+int HtoD(string numero, int base) { // hexadecimal para decimal
     int vetor[100];
     
-    int iterador;
+    unsigned iterador;
 
     for (iterador = 0; iterador < numero.size(); iterador++) {
         vetor[iterador] = numero[(numero.size() - 1) - iterador]; //pegando os caracteres do numero, da esquerda para a direita
@@ -36,7 +35,7 @@ int converterHexa(string numero, int base) { //conversor se o número for Hexade
 
     int convertido = 0; //esse vai ser o retorno da função
     
-    for (int i = 0; i < iterador; i++) //pegando cada item do vetor e multiplicando pelo valor da casa que ele se encontra
+    for (unsigned i = 0; i < iterador; i++) //pegando cada item do vetor e multiplicando pelo valor da casa que ele se encontra
         if ((vetor[i] == 'A') or (vetor[i] == 'B') or (vetor[i] == 'C') or (vetor[i] == 'D') or (vetor[i] == 'E') or (vetor[i] == 'F'))
             convertido += pow(base, i) * (vetor[i] - 'A' + 10); //se o caracter for maior ou igual a A, faz a conversão para inteiro desse jeito
         else
@@ -70,7 +69,7 @@ int main(){
         cout << "Informe o numero a ser convertido (caracteres maiusculos): ";
         cin >> numero;
         cout << "O numero: " << numero << " " << nomeBase << " equivale a: ";
-        cout << converterHexa(numero, base) << " em decimal" << endl;
+        cout << HtoD(numero, base) << " em decimal" << endl;
         
     }
     else { //se for binario ou octal
@@ -78,7 +77,7 @@ int main(){
         cout << "Informe o numero a ser convertido: ";
         cin >> numero;
         cout << "O numero: " << numero << " " << nomeBase << " equivale a: ";
-        cout << converterBO(numero, base) << " em decimal" << endl;
+        cout << BOtoD(numero, base) << " em decimal" << endl;
     }
     
     

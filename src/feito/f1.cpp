@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void conversorBO(int decimal, int base){ //conversor de decimal para binario/octal
+void DtoBO(int decimal, int base){ //conversor de decimal para binario/octal
     int restos[100];
 
     int iterador = 0;
@@ -20,7 +20,7 @@ void conversorBO(int decimal, int base){ //conversor de decimal para binario/oct
 
 }
 
-void hexadecimal (int decimal) { //conversor de decimal para hexadecimal
+void DtoH (int decimal) { //conversor de decimal para hexadecimal
     char restos[100];
     
     int iterador = 0;
@@ -57,9 +57,9 @@ int main(){
     }
 
     if (base == 16) {
-        hexadecimal(decimal);
+        DtoH(decimal);
     } else {
-        conversorBO(decimal, base);
+        DtoBO(decimal, base);
     }
     
         
