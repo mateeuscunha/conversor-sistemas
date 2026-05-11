@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -23,16 +24,43 @@ string BtoO(string binario) {
     return octal;
 }
 
+string OtoB (string octal) {
+	
+	string binario = "";
+	
+	// Percorrendo o octal caracter por caracter
+	for (unsigned i = 0; i < octal.length(); i++) { 
+		char digito = octal[i];
+		
+		switch(digito) {
+			case '0': binario += "000"; break;
+			case '1': binario += "001"; break;
+			case '2': binario += "010"; break;
+            case '3': binario += "011"; break;
+            case '4': binario += "100"; break;
+            case '5': binario += "101"; break;
+            case '6': binario += "110"; break;
+            case '7': binario += "111"; break;
+            default:
+				cout << "Erro: dígito octal inválido - " << digito << endl;
+                return "";
+		}
+	}
+	
+	return binario;
+}
+
+
 string BtoH(string binario) {
 	// Completa com zeros à esquerda
-	while (binario.size() % 4 != 0) {
+	while (binario.length() % 4 != 0) {
 		binario = "0" + binario;
 	}
 	
 	string hexadecimal = "";
 	
 	// Processa de 4 em 4 bits
-	for (unsigned i = 0; i < binario.size(); i += 4) {
+	for (unsigned i = 0; i < binario.length(); i += 4) {
 		// pegar grupo de 4 bits
 		int bit1 = binario[i] - '0';     // primeiro bit (peso 8)
         int bit2 = binario[i+1] - '0';   // segundo bit (peso 4)
@@ -54,11 +82,43 @@ string BtoH(string binario) {
 	return hexadecimal;
 }
 
-int main() {
-	string binario;
-	cin >> binario;
+string HtoB (string hexadecimal) {
+	string binario = "";
+	
+	for (unsigned i = 0; i < hexadecimal.length(); i++) {
+		char digito = hexadecimal[i];
+		
+		switch(digito) {
+		case '0': binario += "0000"; break;
+		case '1': binario += "0001"; break;
+		case '2': binario += "0010"; break;
+		case '3': binario += "0011"; break;
+		case '4': binario += "0100"; break;
+		case '5': binario += "0101"; break;
+		case '6': binario += "0110"; break;
+		case '7': binario += "0111"; break;
+		case '8': binario += "1000"; break;
+		case '9': binario += "1001"; break;
+		case 'A': binario += "1010"; break;
+		case 'B': binario += "1011"; break;
+		case 'C': binario += "1100"; break;
+		case 'D': binario += "1101"; break;
+		case 'E': binario += "1110"; break;
+		case 'F': binario += "1111"; break;
+		default: 
+			cout << "Erro: dígito hexadecimal inválido - " << digito << endl;
+			return "";
+		};
+	}
+	
+	return binario;
+}
 
-	cout << BtoH(binario) << endl;
+int main() {
+	string hexadecimal;
+	cin >> hexadecimal;
+
+	cout << HtoB(hexadecimal) << endl;
 
 	return 0;
 }
