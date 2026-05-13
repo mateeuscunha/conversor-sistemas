@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void DtoBO(int decimal, int base){ // conversor de decimal para binario/octal
+string DtoBO(int decimal, int base){ // conversor de decimal para binario/octal
     int restos[100];
 
     int iterador = 0;
@@ -15,12 +15,15 @@ void DtoBO(int decimal, int base){ // conversor de decimal para binario/octal
         iterador++;
     }
 
-    for (int i = (iterador - 1); i >= 0; i--) //imprimindo o vetor de trás pra frente
-        cout << restos[i];
-    cout << endl;
+	// lendo os restos, de trás pra frente, e adicionando na string resultado
+    string resultado = "";
+    for (int i = (iterador-1); i >= 0; i--) {
+		resultado += (restos[i] + '0');
+	}
+	return resultado;
 }
 
-void DtoH (int decimal) { // conversor de decimal para hexadecimal
+string DtoH (int decimal) { // conversor de decimal para hexadecimal
     char restos[100];
     
     int iterador = 0;
@@ -28,16 +31,19 @@ void DtoH (int decimal) { // conversor de decimal para hexadecimal
         if (decimal % 16 < 10) { 
             restos[iterador] = (decimal % 16) + '0'; // o + '0' é pra converter para char
         } else { //se estiver nos caracteres entre A e F
-            restos[iterador] = (((decimal % 16) - 10) + 65) + '0'; 
+            restos[iterador] = (((decimal % 16) - 10) + 65); 
         }
 
         decimal /= 16;
         iterador++; 
     }
 
+	// lendo os restos, ao contrario, e jogando na string resposta
+	string resposta = "";
     for (int i = (iterador - 1); i >= 0; i--)
-        cout << restos[i];
-    cout << endl;    
+        resposta += restos[i];    
+        
+    return resposta;
 }
 
 int BOtoD(int numero, int base) { // binario/octal para decimal
