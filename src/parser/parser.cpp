@@ -1,3 +1,4 @@
+#include "parser.h"
 #include <iostream>
 #include <string>
 
@@ -88,33 +89,4 @@ bool validarNumero (string numero, int base) {
 	}
 	
 	return valido;
-}
-
-int main() {
-	int base;
-	cout << "Digite a base: ";
-	cin >> base;
-	
-	while (!validarBase(base)) {
-		cout << "Digite a base: ";
-		cin >> base;
-	}
-	
-	string numero;
-	cout << "Digite o numero: ";
-	cin >> numero;
-	// convertendo o número recebido para maiúsculas
-	for (unsigned i = 0; i < numero.size(); i++)
-		numero[i] = toupper(numero[i]);
-	
-	while (!validarNumero(numero, base)) {
-		cout << "Digite um número válido para essa base (" << base << "): ";
-		
-		cin >> numero;
-		
-		for (unsigned i = 0; i < numero.size(); i++)
-		numero[i] = toupper(numero[i]);
-	}
-
-	return 0;
 }

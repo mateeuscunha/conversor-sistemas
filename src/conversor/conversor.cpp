@@ -1,3 +1,4 @@
+#include "conversor.h"
 #include <iostream>
 #include <cmath>
 #include <string>
@@ -276,10 +277,3 @@ string HtoOtroughB (string hexadecimal) { // hexadecimal para octal passando por
 	return octal;
 }
 
-int main() {
-
-	
-
-
-	return 0;
-}
