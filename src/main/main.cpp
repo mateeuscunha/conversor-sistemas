@@ -17,10 +17,71 @@ bool validarBase(int base) {
 
 bool validarNumero (string numero, int base) {
 	bool valido = true;
-	if (base == 2) {
+	if (base == 2) { // binário
 		for (unsigned i = 0; i < numero.size(); i++) 
 			if ((numero[i] != '0') and (numero[i] != '1'))
 				valido = false;
+				
+	} else if (base == 8) { // octal
+		unsigned contador = 0;
+		for (unsigned i = 0; i < numero.size(); i++) {
+			switch(numero[i]) {
+				case '0': contador++; break;
+				case '1': contador++; break;
+				case '2': contador++; break;
+				case '3': contador++; break;
+				case '4': contador++; break;
+				case '5': contador++; break;
+				case '6': contador++; break;
+				case '7': contador++; break;
+			}
+		}
+		if (!(contador == numero.size()))
+			valido = false;
+			
+	} else if (base == 10) { // decimal
+		unsigned contador = 0;
+		for (unsigned i = 0; i < numero.size(); i++) {
+			switch(numero[i]) {
+				case '0': contador++; break;
+				case '1': contador++; break;
+				case '2': contador++; break;
+				case '3': contador++; break;
+				case '4': contador++; break;
+				case '5': contador++; break;
+				case '6': contador++; break;
+				case '7': contador++; break;
+				case '8': contador++; break;
+				case '9': contador++; break;
+			}
+		}
+		if (!(contador == numero.size()))
+			valido = false;
+			
+	} else if (base == 16) { // hexadecimal
+		unsigned contador = 0;
+		for (unsigned i = 0; i < numero.size(); i++) {
+			switch(numero[i]) {
+				case '0': contador++; break;
+				case '1': contador++; break;
+				case '2': contador++; break;
+				case '3': contador++; break;
+				case '4': contador++; break;
+				case '5': contador++; break;
+				case '6': contador++; break;
+				case '7': contador++; break;
+				case '8': contador++; break;
+				case '9': contador++; break;
+				case 'A': contador++; break;
+				case 'B': contador++; break;
+				case 'C': contador++; break;
+				case 'D': contador++; break;
+				case 'E': contador++; break;
+				case 'F': contador++; break;
+			}
+		}
+		if (!(contador == numero.size()))
+			valido = false;
 	}
 	
 	return valido;
@@ -40,14 +101,24 @@ int main() {
 	int base;
 	cin >> base >> numero;
 	
+	// convertendo o número recebido para maiúsculas	
+	for (unsigned i = 0; i < numero.size(); i++)
+		numero[i] = toupper(numero[i]);
+	
+	// validando a base
 	while (!validarBase(base)) {
 		cout << "Digite uma base válida: ";
 		cin >> base;
 	}
 	
+	// validando o número
 	while (!validarNumero(numero, base)) {
 		cout << "Digite um número válido para sua base (" << base << "): ";
 		cin >> numero;
+		
+		// convertendo o número recebido para maiúsculas
+		for (unsigned i = 0; i < numero.size(); i++)
+		numero[i] = toupper(numero[i]);
 	}
 	
 
