@@ -24,7 +24,21 @@ bool validarNumero (string numero, int base) {
 			if ((numero[i] != '0') and (numero[i] != '1'))
 				valido = false;
 	} else if (base == 8) {
-		//falta fazer
+		unsigned contador = 0;
+		for (unsigned i = 0; i < numero.size(); i++) {
+			switch(numero[i]) {
+				case '0': contador++; break;
+				case '1': contador++; break;
+				case '2': contador++; break;
+				case '3': contador++; break;
+				case '4': contador++; break;
+				case '5': contador++; break;
+				case '6': contador++; break;
+				case '7': contador++; break;
+			}
+		}
+		if (!(contador == numero.size()))
+			valido = false;
 	} else if (base == 10) {
 		//falta fazer
 	} else if (base == 16) {
