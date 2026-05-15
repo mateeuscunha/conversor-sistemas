@@ -21,15 +21,45 @@ bool validarBase (int base) {
 
 bool validarNumero (string numero, int base) {
 	bool valido = true;
+	bool pontoEncontrado = false; // controle do separador decimal
+	
 	if (base == 2) { // binário
-		for (unsigned i = 0; i < numero.size(); i++) 
-			if ((numero[i] != '0') and (numero[i] != '1'))
+		unsigned contador = 0;
+		for (unsigned i = 0; i < numero.size(); i++) {
+			// permite ponto ou vírgula (separador decimal)
+			if ((numero[i] == '.') or (numero[i] == ',')) {
+				if (!pontoEncontrado) {
+					pontoEncontrado = true;
+					contador++;  // conta como caractere válido
+				} else {
+					valido = false;  // segundo separador, inválido
+				}
+			}
+			// dígitos válidos do binário
+			else if ((numero[i] == '0') or (numero[i] == '1')) {
+				contador++;
+			}
+			else {
 				valido = false;
+			}
+		}
+		if (!(contador == numero.size()))
+			valido = false;
 				
 	} else if (base == 8) { // octal
 		unsigned contador = 0;
 		for (unsigned i = 0; i < numero.size(); i++) {
-			switch(numero[i]) {
+			// permite ponto ou vírgula (separador decimal)
+			if ((numero[i] == '.') or (numero[i] == ',')) {
+				if (!pontoEncontrado) {
+					pontoEncontrado = true;
+					contador++;
+				} else {
+					valido = false;
+				}
+			}
+			// dígitos válidos do octal
+			else switch(numero[i]) {
 				case '0': contador++; break;
 				case '1': contador++; break;
 				case '2': contador++; break;
@@ -38,15 +68,26 @@ bool validarNumero (string numero, int base) {
 				case '5': contador++; break;
 				case '6': contador++; break;
 				case '7': contador++; break;
+				default: valido = false;
 			}
 		}
 		if (!(contador == numero.size()))
 			valido = false;
-			
+					
 	} else if (base == 10) { // decimal
 		unsigned contador = 0;
 		for (unsigned i = 0; i < numero.size(); i++) {
-			switch(numero[i]) {
+			// permite ponto ou vírgula (separador decimal)
+			if ((numero[i] == '.') or (numero[i] == ',')) {
+				if (!pontoEncontrado) {
+					pontoEncontrado = true;
+					contador++;
+				} else {
+					valido = false;
+				}
+			}
+			// dígitos válidos do decimal
+			else switch(numero[i]) {
 				case '0': contador++; break;
 				case '1': contador++; break;
 				case '2': contador++; break;
@@ -57,6 +98,7 @@ bool validarNumero (string numero, int base) {
 				case '7': contador++; break;
 				case '8': contador++; break;
 				case '9': contador++; break;
+				default: valido = false;
 			}
 		}
 		if (!(contador == numero.size()))
@@ -65,7 +107,17 @@ bool validarNumero (string numero, int base) {
 	} else if (base == 16) { // hexadecimal
 		unsigned contador = 0;
 		for (unsigned i = 0; i < numero.size(); i++) {
-			switch(numero[i]) {
+			// permite ponto ou vírgula (separador decimal)
+			if ((numero[i] == '.') or (numero[i] == ',')) {
+				if (!pontoEncontrado) {
+					pontoEncontrado = true;
+					contador++;
+				} else {
+					valido = false;
+				}
+			}
+			// dígitos válidos do hexadecimal
+			else switch(numero[i]) {
 				case '0': contador++; break;
 				case '1': contador++; break;
 				case '2': contador++; break;
@@ -82,6 +134,7 @@ bool validarNumero (string numero, int base) {
 				case 'D': contador++; break;
 				case 'E': contador++; break;
 				case 'F': contador++; break;
+				default: valido = false;
 			}
 		}
 		if (!(contador == numero.size()))
