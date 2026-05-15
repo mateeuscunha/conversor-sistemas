@@ -3,10 +3,10 @@
 #include <string>
 using namespace std;
 
-string DtoBO(int decimal, int base);
-string DtoH (int decimal);
-int BOtoD(int numero, int base);
-int HtoD(string numero, int base);
+string DtoBO(string decimal, int base);
+string DtoH (string decimal);
+string BOtoD(string numero, int base);
+string HtoD(string numero);
 string BtoO(string binario);
 string OtoB (string octal);
 string BtoH(string binario);

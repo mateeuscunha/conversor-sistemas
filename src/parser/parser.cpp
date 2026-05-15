@@ -10,12 +10,6 @@ bool validarBase (int base) {
 	if ((base == 2) or (base == 8) or (base == 10) or (base == 16))
 		valida = true;
 	
-	if (!valida) {
-		cout << "ERRO: Esta base não é válida!" << endl;
-	}
-	
-	
-	
 	return valida;
 }
 

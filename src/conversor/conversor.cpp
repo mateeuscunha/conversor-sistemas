@@ -5,7 +5,8 @@
 
 using namespace std;
 
-string DtoBO(int decimal, int base){ // conversor de decimal para binario/octal
+string DtoBO(string numero, int base){ // conversor de decimal para binario/octal
+    int decimal = stoi(numero); // transformando a string em inteiro para facilitar os cálculos
     int restos[100];
 
     int iterador = 0;
@@ -24,7 +25,8 @@ string DtoBO(int decimal, int base){ // conversor de decimal para binario/octal
 	return resultado;
 }
 
-string DtoH (int decimal) { // conversor de decimal para hexadecimal
+string DtoH (string numero) { // conversor de decimal para hexadecimal
+    int decimal = stoi(numero);
     char restos[100];
     
     int iterador = 0;
@@ -47,7 +49,9 @@ string DtoH (int decimal) { // conversor de decimal para hexadecimal
     return resposta;
 }
 
-int BOtoD(int numero, int base) { // binario/octal para decimal
+string BOtoD(string numero_txt, int base) { // binario/octal para decimal
+    int numero = stoi(numero_txt); // convertendo para inteiro para facilitar
+    
     int vetor[100];
     
     int iterador = 0;
@@ -64,27 +68,32 @@ int BOtoD(int numero, int base) { // binario/octal para decimal
     for (int i = 0; i < iterador; i++) //somando os produtos das casas com os valores
         convertido += pow(base, i) * vetor[i];
     
-    return convertido;
+    string convertido_txt = to_string(convertido);
+    
+    return convertido_txt;
 }
 
-int HtoD(string numero, int base) { // hexadecimal para decimal
-    int vetor[100];
+string HtoD(string numero) { // hexadecimal para decimal
+    int resultado = 0;
+    int tamanho = numero.size();
     
-    unsigned iterador;
-
-    for (iterador = 0; iterador < numero.size(); iterador++) {
-        vetor[iterador] = numero[(numero.size() - 1) - iterador]; //pegando os caracteres do numero, da esquerda para a direita
-    }
-
-    int convertido = 0; //esse vai ser o retorno da função
-    
-    for (unsigned i = 0; i < iterador; i++) //pegando cada item do vetor e multiplicando pelo valor da casa que ele se encontra
-        if ((vetor[i] == 'A') or (vetor[i] == 'B') or (vetor[i] == 'C') or (vetor[i] == 'D') or (vetor[i] == 'E') or (vetor[i] == 'F'))
-            convertido += pow(base, i) * (vetor[i] - 'A' + 10); //se o caracter for maior ou igual a A, faz a conversão para inteiro desse jeito
-        else
-            convertido += pow(base, i) * (vetor[i] - '0' + 0); //se o caracter for menor que A, faz a conversão para inteiro desse jeito
-
-    return convertido;
+    for (int i = 0; i < tamanho; i++) {
+		char caractere = numero[i];
+		
+		int valorDigito;
+		if ((caractere >= '0') and (caractere <= '9'))
+			valorDigito = caractere - '0'; // exemplo: '0' (48) - '0' (48) = 0 (valor correspondente)
+		else // está A-F
+			valorDigito = caractere - 'A' + 10; // +10, já que A vale 10, B vale 11 e etc
+		
+		int peso = 1; // para cada posicao (for de cima) calculamos o peso (for abaixo)
+		for (int j = 0; j < (tamanho - 1 - i); j++)
+			peso *= 16;
+			
+		resultado += valorDigito * peso;
+	}
+	
+	return to_string(resultado);
 }
 
 string BtoO(string binario) { // binario para octal (agrupamento 3 em 3)
