@@ -64,3 +64,7 @@ void resultadoFinal(int base, string numero, int base_requerida, string resultad
 	cout << "O número " << base_txt << " " << numero << " convertido para " << base_requerida_txt;
 	cout << " é: " << endl << " = " << resultado << endl;
 }
+
+void avisoTruncamento() {
+	cout << "O número foi limitado para 16 casas decimais!!" << endl;
+}

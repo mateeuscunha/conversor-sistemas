@@ -11,5 +11,6 @@ void mesmaBase(int base);
 void erroNumero(int base);
 void printBase_requerida();
 void resultadoFinal(int base, string numero, int base_requerida, string resultado);
+void avisoTruncamento();
 
 #endif

@@ -60,6 +60,13 @@ int main() {
 		fracao = "";
 	}
 	
+	// limitando em 16 casas depois da virgula
+	bool truncamento = false;
+	if (fracao.length() > 16) {
+		fracao = fracao.substr(0, 15);
+		truncamento = true;
+	}
+
 	// pegando a base requerida
 	int base_requerida;
 	printBase_requerida();
@@ -75,50 +82,58 @@ int main() {
 		cin >> base_requerida;
 	}
 	
-	// CONVERSÕES
+	// CONVERSÕES 
 	
-	string resultado;
+	string resultado = "";
 	
 	if (base == 2) { 		 // entrada é um binário
 		
-		if (base_requerida == 8)
-			resultado = BtoO(numero);
+		if (base_requerida == 8) 
+			resultado = BtoO(inteira) + "," + BtoO(fracao);
 		else if (base_requerida == 10)
-			resultado = BOtoD(numero, base);
+			resultado = BOtoD(inteira, base) + "," + BOtoD(fracao, base);
 		else if (base_requerida == 16)
-			resultado = BtoH(numero);			
+			resultado = BtoH(inteira) + "," + BtoH(fracao);	
 			
 	} else if (base == 8) {  // entrada é um octal
 		
 		if (base_requerida == 2)
-			resultado = OtoB(numero);
+			resultado = OtoB(inteira) + "," + OtoB(fracao);
 		else if (base_requerida == 10)
-			resultado = BOtoD(numero, base);
+			resultado = BOtoD(inteira, base) + "," + BOtoD(fracao, base);
 		else if (base_requerida == 16)
-			resultado = OtoHtroughB(numero);
+			resultado = OtoHtroughB(inteira) + "," + OtoHtroughB(fracao);
 			
 	} else if (base == 10) { // entrada é um decimal
 		
 		if (base_requerida == 2)
-			resultado = DtoBO(numero, base_requerida);
+			resultado = DtoBO(inteira, base_requerida) + "," + DtoBO(fracao, base_requerida);
 		else if (base_requerida == 8)
-			resultado = DtoBO(numero, base_requerida);
+			resultado = DtoBO(inteira, base_requerida) + "," + DtoBO(fracao, base_requerida);
 		else if (base_requerida == 16)
-			resultado = DtoH(numero);			
+			resultado = DtoH(inteira) + "," + DtoH(fracao);
 			
 	} else if (base == 16) { // entrada é um hexadecimal
 		
 		if (base_requerida == 2)
-			resultado = HtoB(numero);
+			resultado = HtoB(inteira) + "," + HtoB(fracao);
 		else if (base_requerida == 8)
-			resultado = HtoOtroughB(numero);
+			resultado = HtoOtroughB(inteira) + "," + HtoOtroughB(fracao);
 		else if (base_requerida == 10)
-			resultado = HtoD(numero);			
+			resultado = HtoD(inteira) + "," + HtoD(fracao);
 			
 	}
 	
+	// ajustes
+	
+	if (fracao == "") //tirando a vírgula se não tiver parte fracionária
+		resultado = resultado.substr(0, resultado.length() - 1);
+	
 	// saida final
 	resultadoFinal(base, numero, base_requerida, resultado);
+
+	if (truncamento)
+		avisoTruncamento();
 
 	return 0;
 }
