@@ -5,24 +5,135 @@
 
 using namespace std;
 
+string resultadoSwitch(int base, int base_requerida, string inteira, string fracao) {
+	string resultado = "";
+	
+	bool fracaoVazia = false;
+	if (fracao == "")
+		fracaoVazia = true;
+	
+	if (base == 2) { 		 // entrada é um binário
+		
+		if (base_requerida == 8) {
+			resultado = BtoO(inteira);
+			if (!fracaoVazia)
+				resultado += "," + BtoO(fracao);
+		}
+		else if (base_requerida == 10) {
+			resultado = BOtoD(inteira, base);
+			if (!fracaoVazia)
+				resultado += "," + BOtoD(fracao, base);
+		}
+		else if (base_requerida == 16) {
+			resultado = BtoH(inteira);
+			if (!fracaoVazia)
+				resultado += "," + BtoH(fracao);
+		}	
+			
+	} else if (base == 8) {  // entrada é um octal
+		
+		if (base_requerida == 2) {
+			resultado = OtoB(inteira);
+			if (!fracaoVazia)
+				resultado += "," + OtoB(fracao);
+		}
+		else if (base_requerida == 10) {
+			resultado = BOtoD(inteira, base);
+			if (!fracaoVazia)
+				resultado += "," + BOtoD(fracao, base);
+		}
+		else if (base_requerida == 16) {
+			resultado = OtoHtroughB(inteira);
+			if (!fracaoVazia)
+				resultado += "," + OtoHtroughB(fracao);
+		}
+			
+	} else if (base == 10) { // entrada é um decimal
+		
+		if (base_requerida == 2) {
+			resultado = DtoBO(inteira, base_requerida);
+			if (!fracaoVazia)
+				resultado += "," + DtoBO(fracao, base_requerida);
+		}
+		else if (base_requerida == 8) {
+			resultado = DtoBO(inteira, base_requerida);
+			if (!fracaoVazia)
+				resultado += "," + DtoBO(fracao, base_requerida);
+		}
+		else if (base_requerida == 16) {
+			resultado = DtoH(inteira);
+			if (!fracaoVazia)
+				resultado +=  "," + DtoH(fracao);
+		}
+			
+	} else if (base == 16) { // entrada é um hexadecimal
+		
+		if (base_requerida == 2) {
+			resultado = HtoB(inteira);
+			if (!fracaoVazia)
+				resultado += "," + HtoB(fracao);
+		}
+		else if (base_requerida == 8) {
+			resultado = HtoOtroughB(inteira);
+			if (!fracaoVazia)
+				resultado += "," + HtoOtroughB(fracao);
+		}
+		else if (base_requerida == 10) {
+			resultado = HtoD(inteira);
+			if (!fracaoVazia)
+				resultado += "," + HtoD(fracao);
+		}
+			
+	}
+		
+	return resultado;
+}
+
 string DtoBO(string numero, int base){ // conversor de decimal para binario/octal
-    int decimal = stoi(numero); // transformando a string em inteiro para facilitar os cálculos
+ int decimal = stoi(numero);
     int restos[100];
-
     int iterador = 0;
-    while(decimal != 0) { //estrutura de repetição para ir dividindo e guardando os restos
+    
+    // MOSTRANDO O TRACE
+    cout << "\n--- PROCESSO DE CONVERSÃO ---" << endl;
+    cout << "Convertendo " << decimal << " decimal para base " << base << ":" << endl;
+    cout << "Divisões sucessivas:" << endl;
+    
+    int original = decimal;
+    while(decimal != 0) {
         restos[iterador] = decimal % base;
-
+        cout << decimal << " ÷ " << base << " = " << (decimal/base) 
+             << " (resto " << restos[iterador] << ")" << endl;
         decimal /= base;
         iterador++;
     }
-
-	// lendo os restos, de trás pra frente, e adicionando na string resultado
+    
+    // MOSTRANDO OS RESTOS LIDOS DE TRÁS PRA FRENTE
+    cout << "\nRestos (lidos de baixo para cima): ";
+    for (int i = (iterador-1); i >= 0; i--) {
+        cout << restos[i];
+        if (i > 0) cout << " ";
+    }
+    cout << endl;
+    
+    // MOSTRANDO O SOMATÓRIO POSICIONAL
+    cout << "\nSomatório posicional:" << endl;
     string resultado = "";
     for (int i = (iterador-1); i >= 0; i--) {
-		resultado += (restos[i] + '0');
-	}
-	return resultado;
+        int posicao = (iterador-1 - i);
+        int peso = pow(base, posicao);
+        resultado += (restos[i] + '0');
+        
+        cout << restos[i] << " × " << base << "^" << posicao 
+             << " = " << restos[i] * peso;
+        if (i > 0) cout << " + ";
+        else cout << " = " << original << endl;
+    }
+    
+    cout << "Resultado: " << resultado << " (base " << base << ")" << endl;
+    cout << "-------------------------------\n" << endl;
+    
+    return resultado;
 }
 
 string DtoH (string numero) { // conversor de decimal para hexadecimal

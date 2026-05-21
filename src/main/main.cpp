@@ -84,50 +84,7 @@ int main() {
 	
 	// CONVERSÕES 
 	
-	string resultado = "";
-	
-	if (base == 2) { 		 // entrada é um binário
-		
-		if (base_requerida == 8) 
-			resultado = BtoO(inteira) + "," + BtoO(fracao);
-		else if (base_requerida == 10)
-			resultado = BOtoD(inteira, base) + "," + BOtoD(fracao, base);
-		else if (base_requerida == 16)
-			resultado = BtoH(inteira) + "," + BtoH(fracao);	
-			
-	} else if (base == 8) {  // entrada é um octal
-		
-		if (base_requerida == 2)
-			resultado = OtoB(inteira) + "," + OtoB(fracao);
-		else if (base_requerida == 10)
-			resultado = BOtoD(inteira, base) + "," + BOtoD(fracao, base);
-		else if (base_requerida == 16)
-			resultado = OtoHtroughB(inteira) + "," + OtoHtroughB(fracao);
-			
-	} else if (base == 10) { // entrada é um decimal
-		
-		if (base_requerida == 2)
-			resultado = DtoBO(inteira, base_requerida) + "," + DtoBO(fracao, base_requerida);
-		else if (base_requerida == 8)
-			resultado = DtoBO(inteira, base_requerida) + "," + DtoBO(fracao, base_requerida);
-		else if (base_requerida == 16)
-			resultado = DtoH(inteira) + "," + DtoH(fracao);
-			
-	} else if (base == 16) { // entrada é um hexadecimal
-		
-		if (base_requerida == 2)
-			resultado = HtoB(inteira) + "," + HtoB(fracao);
-		else if (base_requerida == 8)
-			resultado = HtoOtroughB(inteira) + "," + HtoOtroughB(fracao);
-		else if (base_requerida == 10)
-			resultado = HtoD(inteira) + "," + HtoD(fracao);
-			
-	}
-	
-	// ajustes
-	
-	if (fracao == "") //tirando a vírgula se não tiver parte fracionária
-		resultado = resultado.substr(0, resultado.length() - 1);
+	string resultado = resultadoSwitch(base, base_requerida, inteira, fracao);
 	
 	// saida final
 	resultadoFinal(base, numero, base_requerida, resultado);

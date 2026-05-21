@@ -3,6 +3,7 @@
 #include <string>
 using namespace std;
 
+string resultadoSwitch(int base, int base_requerida, string inteira, string fracao);
 string DtoBO(string decimal, int base);
 string DtoH (string decimal);
 string BOtoD(string numero, int base);
