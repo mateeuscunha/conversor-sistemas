@@ -90,49 +90,23 @@ string resultadoSwitch(int base, int base_requerida, string inteira, string frac
 }
 
 string DtoBO(string numero, int base){ // conversor de decimal para binario/octal
- int decimal = stoi(numero);
+ int decimal = stoi(numero); // transformando a string em inteiro para facilitar os cálculos
     int restos[100];
+
     int iterador = 0;
-    
-    // MOSTRANDO O TRACE
-    cout << "\n--- PROCESSO DE CONVERSÃO ---" << endl;
-    cout << "Convertendo " << decimal << " decimal para base " << base << ":" << endl;
-    cout << "Divisões sucessivas:" << endl;
-    
-    int original = decimal;
-    while(decimal != 0) {
+    while(decimal != 0) { //estrutura de repetição para ir dividindo e guardando os restos
         restos[iterador] = decimal % base;
-        cout << decimal << " ÷ " << base << " = " << (decimal/base) 
-             << " (resto " << restos[iterador] << ")" << endl;
+
         decimal /= base;
         iterador++;
     }
-    
-    // MOSTRANDO OS RESTOS LIDOS DE TRÁS PRA FRENTE
-    cout << "\nRestos (lidos de baixo para cima): ";
-    for (int i = (iterador-1); i >= 0; i--) {
-        cout << restos[i];
-        if (i > 0) cout << " ";
-    }
-    cout << endl;
-    
-    // MOSTRANDO O SOMATÓRIO POSICIONAL
-    cout << "\nSomatório posicional:" << endl;
+
+	// lendo os restos, de trás pra frente, e adicionando na string resultado
     string resultado = "";
     for (int i = (iterador-1); i >= 0; i--) {
-        int posicao = (iterador-1 - i);
-        int peso = pow(base, posicao);
-        resultado += (restos[i] + '0');
-        
-        cout << restos[i] << " × " << base << "^" << posicao 
-             << " = " << restos[i] * peso;
-        if (i > 0) cout << " + ";
-        else cout << " = " << original << endl;
-    }
-    
-    cout << "Resultado: " << resultado << " (base " << base << ")" << endl;
-    cout << "-------------------------------\n" << endl;
-    
+		resultado += (restos[i] + '0');
+	}
+
     return resultado;
 }
 
